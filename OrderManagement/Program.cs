@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using Infraestructure.Database;
+using Application;
+using Infraestructure.Database.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#region Extensions
+builder.Services.AddDBInMemoryService();
+builder.Services.AddApplicationServices();
+#endregion
 
 var app = builder.Build();
 
@@ -28,4 +36,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+#region Starting Default Data
+InitializeDefaultDatabase.Init(app);
+#endregion
+
 app.Run();
+
