@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.DataAnnotations;
 
 namespace Infraestructure.Database.Context
 {
