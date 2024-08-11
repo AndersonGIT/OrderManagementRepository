@@ -25,6 +25,7 @@ This API is responsible for managing the products and orders.
 
 - .NET 8
     - Swagger
+    - Entity Framework Core
 
 - SQL
     - SQL-Server
@@ -32,14 +33,27 @@ This API is responsible for managing the products and orders.
  
 ## Business Implementation
 
+- Product C.R.U.D
+    - [ ] Product Creation
+    - [ ] Product Read & List
+    - [ ] Product Update
+    - [ ] Product Delete
+
+- Client C.R.U.D
+    - [ ] Client Creation
+    - [ ] Client Read & List
+    - [ ] Client Update
+    - [ ] Client Delete
+          
 - Order C.R.U.D
     - [ ] Order Creation
     - [ ] Order Read & List
     - [ ] Order Update
     - [ ] Order Delete
 
-- Product C.R.U.D
-    - [ ] Product Creation
-    - [ ] Product Read & List
-    - [ ] Product Update
-    - [ ] Product Delete
+- OrderItem C.R.U.D
+    - [ ] OrderItem Creation
+    - [ ] OrderItem Read & List
+    - [ ] OrderItem Update
+    - [ ] OrderItem Delete
+
