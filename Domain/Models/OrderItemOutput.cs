@@ -6,30 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain.Models
 {
-    [Table("OrderItem")]
-    public class OrderItem
+    public class OrderItemOutput
     {
-        [Key()]
         public int Id { get; set; }
-        public int OrderId {  get; set; }
         public int ProductId { get; set; }
+        public string? ProductName { get; set; }
+        public double ProductPrice { get; set; }
         public int Quantity { get; set; }
 
-        public OrderItem(int orderId, int productId, int quantity)
+        public OrderItemOutput(int id, int productId, string? productName, double productPrice, int quantity)
         {
-            OrderId = orderId;
+            Id = id;
             ProductId = productId;
+            ProductName = productName ?? string.Empty;
+            ProductPrice = productPrice;
             Quantity = quantity;
-        }
-
-        public bool Validate()
-        {
-            if (ProductId <= 0 || Quantity <= 0)
-                return false;
-
-            return true;
         }
     }
 }

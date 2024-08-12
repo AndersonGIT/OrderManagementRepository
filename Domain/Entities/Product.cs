@@ -21,5 +21,13 @@ namespace Domain.Entities
             Name = name ?? string.Empty;
             Price = price;
         }
+
+        public bool Validate()
+        {
+            if (string.IsNullOrEmpty(Name) || Price <= 0) return false;
+
+            return true;
+        }
+
     }
 }

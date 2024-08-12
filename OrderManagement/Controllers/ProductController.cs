@@ -31,20 +31,33 @@ namespace OrderManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> InserProduct([FromBody] Product product)
         {
-            var productInserted = await _productService.InsertProductAsync(product);
+            if (product.Validate())
+            {
+                var productInserted = await _productService.InsertProductAsync(product);
 
-            return Ok(productInserted);
-
+                return Ok(productInserted);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{productId}")]
         public async Task<IActionResult> UpdateProduct(int productId, [FromBody] Product product)
         {
-            if (productId != product?.Id) return BadRequest();
+            if (product.Validate())
+            {
+                if (productId != product?.Id) return BadRequest();
 
-            var productUpdated = await _productService.UpdateProductAsync(product);
-            
-            return Ok(productUpdated);
+                var productUpdated = await _productService.UpdateProductAsync(product);
+
+                return Ok(productUpdated);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{productId}")]

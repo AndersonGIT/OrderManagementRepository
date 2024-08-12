@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Domain.Entities
 {
@@ -17,6 +18,7 @@ namespace Domain.Entities
         public DateTime CreationDate { get; set; }
         public bool PaymentStatus { get; set; }
         public List<OrderItem> OrderItems { get; set; }
+        public double TotalPrice { get; set; }
 
         public Order()
         {
@@ -30,6 +32,35 @@ namespace Domain.Entities
             CreationDate = DateTime.Now;
             PaymentStatus = paymentStatus;
             OrderItems = orderItems;
+        }
+
+        public bool Validate()
+        {
+            if (ClientId <= 0)
+                return false;
+
+            if (OrderItems == null)
+                return false;
+            else
+            {
+                if (OrderItems.Count > 0)
+                {
+                    foreach (var orderItem in OrderItems)
+                    {
+                        if (!orderItem.Validate())
+                        {
+                            return false;
+                        }
+                    }
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

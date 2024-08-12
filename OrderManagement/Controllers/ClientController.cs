@@ -32,19 +32,33 @@ namespace OrderManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> InserClient([FromBody] Client client)
         {
-            var clientInserted = await _clientService.InsertClientAsync(client);
+            if (client.Validate())
+            {
+                var clientInserted = await _clientService.InsertClientAsync(client);
 
-            return Ok(clientInserted);
+                return Ok(clientInserted);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{clientId}")]
         public async Task<IActionResult> UpdateClient(int clientId, [FromBody] Client client)
         {
-            if (clientId != client?.Id) return BadRequest();
+            if (client.Validate())
+            {
+                if (clientId != client?.Id) return BadRequest();
 
-            var clientUpdated = await _clientService.UpdateClientAsync(client);
+                var clientUpdated = await _clientService.UpdateClientAsync(client);
 
-            return Ok(clientUpdated);
+                return Ok(clientUpdated);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{clientId}")]
