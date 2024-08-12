@@ -19,12 +19,12 @@ namespace OrderManagement.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> GetOrderById(int orderId)
         {
-            if (id <= 0) return BadRequest();
+            if (orderId <= 0) return BadRequest();
 
-            var orders = await _orderService.GetOrListOrderAsync(id);
+            var orders = await _orderService.GetOrListOrderAsync(orderId);
 
             return Ok(orders);
         }
@@ -37,22 +37,22 @@ namespace OrderManagement.Controllers
             return Ok(orderInserted);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrder(int id, [FromBody] Order order)
+        [HttpPut("{orderId}")]
+        public async Task<IActionResult> UpdateOrder(int orderId, [FromBody] Order order)
         {
-            if (id != order?.Id) return BadRequest();
+            if (orderId != order?.Id) return BadRequest();
 
             var orderUpdated = await _orderService.UpdateOrderAsync(order);
 
             return Ok(orderUpdated);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(int id)
+        [HttpDelete("{orderId}")]
+        public async Task<IActionResult> DeleteOrder(int orderId)
         {
-            if (id <= 0) return BadRequest();
+            if (orderId <= 0) return BadRequest();
 
-            var orderDeleted = await _orderService.DeleteOrderAsync(id);
+            var orderDeleted = await _orderService.DeleteOrderAsync(orderId);
 
             return Ok(orderDeleted);
         }

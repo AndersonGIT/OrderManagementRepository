@@ -2,8 +2,6 @@
 using Domain.Ports.IClient;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace OrderManagement.Controllers
 {
     [Route("api/[controller]")]
@@ -21,12 +19,12 @@ namespace OrderManagement.Controllers
             return Ok(clients);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetClientById(int id)
+        [HttpGet("{clientId}")]
+        public async Task<IActionResult> GetClientById(int clientId)
         {
-            if (id <= 0) return BadRequest();
+            if (clientId <= 0) return BadRequest();
 
-            var clients = await _clientService.GetOrListClientAsync(id);
+            var clients = await _clientService.GetOrListClientAsync(clientId);
 
             return Ok(clients);
         }
@@ -39,22 +37,22 @@ namespace OrderManagement.Controllers
             return Ok(clientInserted);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateClient(int id, [FromBody] Client client)
+        [HttpPut("{clientId}")]
+        public async Task<IActionResult> UpdateClient(int clientId, [FromBody] Client client)
         {
-            if (id != client?.Id) return BadRequest();
+            if (clientId != client?.Id) return BadRequest();
 
             var clientUpdated = await _clientService.UpdateClientAsync(client);
 
             return Ok(clientUpdated);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(int id)
+        [HttpDelete("{clientId}")]
+        public async Task<IActionResult> DeleteClient(int clientId)
         {
-            if (id <= 0) return BadRequest();
+            if (clientId <= 0) return BadRequest();
 
-            var clientDeleted = await _clientService.DeleteClientAsync(id);
+            var clientDeleted = await _clientService.DeleteClientAsync(clientId);
 
             return Ok(clientDeleted);
         }

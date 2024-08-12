@@ -2,8 +2,6 @@
 using Domain.Ports.IProduct;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace OrderManagement.Controllers
 {
     [Route("api/[controller]")]
@@ -21,12 +19,12 @@ namespace OrderManagement.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetProductById(int id)
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> GetProductById(int productId)
         {
-            if (id <= 0) return BadRequest();
+            if (productId <= 0) return BadRequest();
 
-            var products = await _productService.GetOrListProductAsync(id);
+            var products = await _productService.GetOrListProductAsync(productId);
             return Ok(products);
         }
 
@@ -39,22 +37,22 @@ namespace OrderManagement.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
+        [HttpPut("{productId}")]
+        public async Task<IActionResult> UpdateProduct(int productId, [FromBody] Product product)
         {
-            if (id != product?.Id) return BadRequest();
+            if (productId != product?.Id) return BadRequest();
 
             var productUpdated = await _productService.UpdateProductAsync(product);
             
             return Ok(productUpdated);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        [HttpDelete("{productId}")]
+        public async Task<IActionResult> DeleteProduct(int productId)
         {
-            if(id <= 0) return BadRequest();
+            if(productId <= 0) return BadRequest();
 
-            var productDeleted = await _productService.DeleteProductAsync(id);
+            var productDeleted = await _productService.DeleteProductAsync(productId);
 
             return Ok(productDeleted);
         }
