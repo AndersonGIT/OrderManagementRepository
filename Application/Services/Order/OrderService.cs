@@ -54,12 +54,20 @@ namespace Application.Services.Order
 
         public async Task<Domain.Entities.Order> UpdateOrderAsync(Domain.Entities.Order order)
         {
-
             if (order != null)
             {
-                order.TotalPrice = await GetTotalPriceAsync(order);
-                var orderUpdated = await _orderRepository.Update(order);
-                return orderUpdated;
+                var ordersAux = await _orderRepository.GetOrList(order.Id);
+                if(ordersAux != null)
+                {
+                    var orderAux = ordersAux.FirstOrDefault();
+                    if(orderAux != null)
+                    {
+                        orderAux.TotalPrice = await GetTotalPriceAsync(order);
+                        orderAux.PaymentStatus = order.PaymentStatus;
+                        var orderUpdated = await _orderRepository.Update(orderAux);
+                        return orderUpdated;
+                    }
+                }
             }
 
             return order;
